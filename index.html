@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>IMPACT Gift Wrapping</title>
+   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <style>
+       * { margin: 0; padding: 0; box-sizing: border-box; }
+
+       :root {
+           --rose:        #C4847A;
+           --rose-light:  #E8B4AE;
+           --rose-pale:   #F7EDED;
+           --rose-soft:   #FDF6F5;
+           --gold:        #B8836F;
+           --gold-light:  #D4A98A;
+           --gold-pale:   #F5EDE8;
+           --ivory:       #FEFCFA;
+           --warm:        #FBF7F4;
+           --charcoal:    #2E2422;
+           --mid:         #6B5250;
+           --soft:        #A08380;
+           --border:      #EDD8D4;
+       }
+
+       body {
+           font-family: 'Jost', sans-serif;
+           color: var(--charcoal);
+           background: var(--ivory);
+           font-weight: 300;
+           font-size: 17px;
+       }
+
+       .page { display: none; }
+       .page.active { display: block; }
+
+       .ribbon-divider {
+           display: flex;
+           align-items: center;
+           gap: 18px;
+           margin: 0 auto 52px;
+           max-width: 280px;
+       }
+       .ribbon-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--rose-light)); }
+       .ribbon-line.r { background: linear-gradient(90deg, var(--rose-light), transparent); }
+       .ribbon-icon { color: var(--rose); font-size: 20px; }
+
+       .tag-label {
+           display: inline-block;
+           background: var(--rose-pale);
+           color: var(--rose);
+           font-size: 11px;
+           letter-spacing: 3.5px;
+           text-transform: uppercase;
+           padding: 7px 20px;
+           font-weight: 600;
+           margin-bottom: 22px;
+           border-radius: 30px;
+       }
+
+       /* ── NAVIGATION ── */
+       nav {
+           background: var(--ivory);
+           border-bottom: 1px solid var(--border);
+           padding: 0 55px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           height: 82px;
+           position: sticky;
+           top: 0;
+           z-index: 1000;
+           box-shadow: 0 2px 20px rgba(196,132,122,0.07);
+       }
+       .nav-logo img {
+           height: 52px;
+           width: auto;
+           object-fit: contain;
+           cursor: pointer;
+       }
+       .nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+       .nav-links a {
+           color: var(--mid);
+           text-decoration: none;
+           font-size: 12px;
+           letter-spacing: 2px;
+           text-transform: uppercase;
+           cursor: pointer;
+           transition: color 0.3s;
+           font-weight: 500;
+       }
+       .nav-links a:hover { color: var(--rose); }
+
+       /* ── HERO ── */
+       .hero {
+           background: linear-gradient(135deg, #FDF0EE 0%, #F9E4E0 40%, #F5D8D2 100%);
+           min-height: 92vh;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           text-align: center;
+           padding: 80px 40px;
+           position: relative;
+            overflow: hidden;
+       }
+       .hero::before {
+           content: '';
+           position: absolute;
+           top: -120px; right: -120px;
+           width: 500px; height: 500px;
+           border-radius: 50%;
+           background: radial-gradient(circle, rgba(232,180,174,0.25) 0%, transparent 70%);
+           pointer-events: none;
+       }
+       .hero::after {
+           content: '';
+           position: absolute;
+           bottom: -80px; left: -80px;
+           width: 380px; height: 380px;
+           border-radius: 50%;
+           background: radial-gradient(circle, rgba(212,169,138,0.18) 0%, transparent 70%);
+           pointer-events: none;
+       }
+       .hero-inner { position: relative; z-index: 1; max-width: 820px; }
+       .hero-logo {
+           height: 155px;
+           width: auto;
+           max-width: 320px;
+           object-fit: contain;
+           margin: 0 auto 36px;
+           display: block;
+            filter: drop-shadow(0 6px 24px rgba(196,132,122,0.2));
+       }
+       .hero h1 {
+           font-family: 'Libre Baskerville', serif;
+           font-size: 80px;
+           color: var(--charcoal);
+           line-height: 1.15;
+           margin-bottom: 8px;
+           font-weight: 400;
+       }
+       .hero h1 em { font-style: italic; color: var(--rose); }
+       .hero-rule {
+           width: 100px; height: 2px;
+           background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+           margin: 26px auto;
+       }
+       .hero p {
+           font-size: 18px;
+           color: var(--mid);
+           line-height: 2;
+           max-width: 520px;
+           margin: 0 auto 44px;
+           font-weight: 300;
+       }
+
+       /* ── BUTTONS ── */
+       .btn {
+           display: inline-block;
+           padding: 16px 50px;
+           background: var(--rose);
+           color: white;
+           font-family: 'Jost', sans-serif;
+           font-size: 12px;
+           letter-spacing: 3px;
+           text-transform: uppercase;
+           cursor: pointer;
+           border: none;
+           border-radius: 40px;
+           transition: all 0.3s;
+           font-weight: 500;
+           box-shadow: 0 8px 28px rgba(196,132,122,0.3);
+       }
+       .btn:hover { background: var(--gold); box-shadow: 0 12px 36px rgba(184,131,111,0.35); transform: translateY(-2px); }
+       .btn-outline { background: transparent; color: var(--rose); border: 1.5px solid var(--rose); box-shadow: none; }
+       .btn-outline:hover { background: var(--rose); color: white; box-shadow: 0 8px 28px rgba(196,132,122,0.25); }
+       .btn-outline-gold { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); box-shadow: none; }
+       .btn-outline-gold:hover { background: var(--gold); color: white; box-shadow: 0 8px 28px rgba(184,131,111,0.25); }
+       .btn-dark { background: var(--charcoal); color: white; box-shadow: 0 8px 24px rgba(46,36,34,0.2); }
+       .btn-dark:hover { background: var(--rose); box-shadow: 0 10px 30px rgba(196,132,122,0.3); }
+
+       /* ── SECTION COMMON ── */
+       .section-title {
+           font-family: 'Libre Baskerville', serif;
+           font-size: 52px;
+           color: var(--charcoal);
+           margin-bottom: 28px;
+           line-height: 1.2;
+           font-weight: 400;
+       }
+       .section-header { text-align: center; margin-bottom: 60px; }
+
+       /* ── ABOUT ── */
+       .about-section { padding: 110px 60px; background: white; text-align: center; }
+       .about-section p { max-width: 700px; margin: 0 auto; font-size: 18px; line-height: 2.2; color: var(--soft); }
+       .about-section strong { color: var(--charcoal); font-weight: 600; }
+
+       /* ── COLLECTIONS ── */
+       .collections-section { padding: 110px 60px; background: var(--rose-soft); }
+       .collections-grid {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 26px;
+           max-width: 1150px;
+           margin: 0 auto;
+       }
+       .collection-card {
+           background: white;
+           padding: 60px  36px;
+           text-align: center;
+           border-radius: 16px;
+           border: 1px solid var(--border);
+           transition: all 0.35s;
+           box-shadow: 0 4px 24px rgba(196,132,122,0.07);
+       }
+       .collection-card:hover { transform: translateY(-10px); box-shadow: 0 20px 55px rgba(196,132,122,0.18); border-color: var(--rose-light); }
+       .collection-tier { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--rose-light); margin-bottom: 16px; font-weight: 600; }
+       .collection-name { font-family: 'Libre Baskerville', serif; font-size: 38px; color: var(--charcoal); margin-bottom: 8px; font-weight: 400; }
+       .collection-price { font-family: 'Libre Baskerville', serif; font-size: 28px; color: var(--rose); margin-bottom: 20px; font-style: italic; }
+       .collection-line { width: 36px; height: 2px; background: var(--rose-light); margin: 0 auto 22px; border-radius: 2px; }
+       .collection-desc { font-size: 15px; color: var(--soft); line-height: 1.9; margin-bottom: 34px; }
+
+       /* ── PACKAGES ── */
+       .packages-section { padding: 110px 60px; background: white; }
+       .packages-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 1000px; margin: 0 auto; }
+       .package-card {
+           background: var(--warm);
+           padding: 58px 44px;
+           text-align: center;
+           border-radius: 16px;
+           border: 1px solid var(--border);
+           transition: all 0.35s;
+       }
+       .package-card:hover { box-shadow: 0 16px 48px rgba(196,132,122,0.14); border-color: var(--rose-light); }
+       .package-icon { font-size: 34px; margin-bottom: 22px; }
+       .package-card h3 { font-family: 'Libre Baskerville', serif; font-size: 32px; color: var(--charcoal); margin-bottom: 16px; font-weight: 400; }
+       .package-card p { font-size: 16px; color: var(--soft); line-height: 1.95; margin-bottom: 34px; }
+
+       /* ── CORPORATE ── */
+       .corporate-section {
+           padding: 100px 60px;
+           background: linear-gradient(135deg, var(--charcoal) 0%, #4A2E2A 100%);
+           display: flex;
+           align-items: center;
+           gap: 70px;
+       }
+       .corporate-text { flex: 1; }
+       .corporate-text .tag-label { background: rgba(196,132,122,0.2); color: var(--rose-light); }
+       .corporate-text .section-title { color: white; text-align: left; margin-bottom: 20px; }
+       .corporate-text p { font-size: 17px; color: rgba(255,255,255,0.58); line-height: 2; margin-bottom: 36px; }
+       .corporate-visual {
+           flex: 1; height: 320px;
+           background: rgba(255,255,255,0.06);
+           border: 1px solid rgba(232,180,174,0.2);
+           border-radius: 12px;
+           display: flex; align-items: center; justify-content: center;
+           color: rgba(255,255,255,0.22);
+           font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+       }
+
+       /* ── PAGE HERO ── */
+       .page-hero {
+           background: linear-gradient(135deg, #FDF0EE 0%, #F9E4E0 60%, #F5D8D2 100%);
+           padding: 80px 60px 65px;
+           text-align: center;
+           border-bottom: 1px solid var(--border);
+           position: relative;
+       }
+       .page-hero::after {
+           content: '';
+           position: absolute;
+           bottom: 0; left: 50%;
+           transform: translateX(-50%);
+           width: 80px; height: 3px;
+           background: linear-gradient(90deg, var(--rose-light), var(--gold));
+           border-radius: 3px;
+       }
+       .page-hero-logo {
+           height: 68px; width: auto; max-width: 150px;
+           object-fit: contain;
+           margin: 0 auto 28px; display: block;
+           filter: drop-shadow(0 4px 14px rgba(196,132,122,0.2));
+       }
+       .page-hero h1 { font-family: 'Libre Baskerville', serif; font-size: 60px; color: var(--charcoal); margin-bottom: 14px; font-weight: 400; }
+       .page-hero p { font-size: 17px; color: var(--soft); max-width: 520px; margin: 0 auto 22px; line-height: 1.9; }
+       .price-tag { font-family: 'Libre Baskerville', serif; font-size: 36px; color: var(--rose); font-style: italic; }
+
+       /* ── GALLERY ── */
+       .gallery-section { background: var(--gold-pale); padding: 65px 60px; }
+       .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 1100px; margin: 0 auto; }
+       .gallery-placeholder {
+           background: var(--border); height: 210px; border-radius: 10px;
+           display: flex; align-items: center; justify-content: center;
+           color: var(--soft); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+       }
+       .gallery-image {
+           display: block;
+           width: 100%;
+           height: 210px;
+           object-fit: contain;
+           object-position: center;
+           background: var(--gold-pale);
+           border-radius: 10px;
+       }
+
+       /* ── ORDER FORM ── */
+       .order-section { background: white; padding: 100px 60px; }
+       .order-form { max-width: 620px; margin: 0 auto; }
+       .form-group { margin-bottom: 28px; }
+       .form-group label {
+           display: block;
+           font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+           color: var(--mid); margin-bottom: 10px; font-weight: 600;
+       }
+       .form-group input,
+       .form-group textarea,
+       .form-group select {
+           width: 100%;
+           padding: 14px 18px;
+           border: 1.5px solid var(--border);
+           border-radius: 10px;
+           background: var(--rose-soft);
+           font-family: 'Jost', sans-serif;
+           font-size: 16px; color: var(--charcoal);
+           transition: border-color 0.3s, box-shadow 0.3s;
+           outline: none; font-weight: 300; appearance: none;
+       }
+       .form-group input:focus,
+       .form-group textarea:focus,
+       .form-group select:focus {
+           border-color: var(--rose);
+           box-shadow: 0 0 0 4px rgba(196,132,122,0.1);
+           background: white;
+       }
+       .form-group textarea { height: 120px; resize: none; }
+       .form-note { font-size: 11px; color: var(--soft); margin-top: 7px; font-style: italic; }
+       .gifts-container { margin-bottom: 14px; }
+       .gift-row { margin-bottom: 12px; }
+       .add-gift-btn {
+           background: none; border: none; color: var(--rose);
+           font-family: 'Jost', sans-serif; font-size: 12px;
+           letter-spacing: 2px; text-transform: uppercase;
+           cursor: pointer; margin-bottom: 30px; padding: 0;
+           font-weight: 500; transition: color 0.3s;
+           display: flex; align-items: center; gap: 8px;
+       }
+       .add-gift-btn::before { content: '+'; font-size: 20px; }
+       .add-gift-btn:hover { color: var(--charcoal); }
+       .submit-btn {
+           width: 100%; padding: 19px;
+           background: var(--rose); color: white;
+           border: none; border-radius: 40px;
+           font-family: 'Jost', sans-serif; font-size: 13px;
+           letter-spacing: 3px; text-transform: uppercase;
+           cursor: pointer; transition: all 0.3s; font-weight: 500;
+           margin-top: 18px;
+           box-shadow: 0 8px 28px rgba(196,132,122,0.28);
+       }
+       .submit-btn:hover { background: var(--gold); box-shadow: 0 12px 36px rgba(184,131,111,0.35); transform: translateY(-2px); }
+
+       /* ── POEM CHECKBOX ── */
+       .poem-checkbox-wrap {
+           display: flex;
+           align-items: center;
+           gap: 14px;
+           padding: 18px 20px;
+           background: var(--rose-pale);
+           border-radius: 12px;
+           border: 1.5px solid var(--border);
+           margin-bottom: 0;
+           cursor: pointer;
+           transition: border-color 0.3s;
+       }
+       .poem-checkbox-wrap:hover { border-color: var(--rose); }
+       .poem-checkbox-wrap input[type="checkbox"] {
+           width: 20px; height: 20px;
+           accent-color: var(--rose);
+           cursor: pointer;
+           flex-shrink: 0;
+           border-radius: 4px;
+           padding: 0;
+           background: white;
+           border: 1.5px solid var(--border);
+            box-shadow: none;
+       }
+       .poem-checkbox-label {
+           font-size: 15px;
+           color: var(--charcoal);
+           font-weight: 400;
+           cursor: pointer;
+       }
+       .poem-checkbox-label span {
+           display: block;
+           font-size: 12px;
+           color: var(--soft);
+           margin-top: 3px;
+           font-weight: 300;
+       }
+       .poem-details {
+           display: none;
+           margin-top: 16px;
+           padding: 22px;
+           background: white;
+           border-radius: 12px;
+           border: 1.5px solid var(--rose-light);
+           animation: fadeSlide 0.3s ease;
+       }
+       .poem-details.visible { display: block; }
+       @keyframes fadeSlide {
+           from { opacity: 0; transform: translateY(-8px); }
+           to   { opacity: 1; transform: translateY(0); }
+       }
+       .poem-details label {
+           font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+           color: var(--rose); margin-bottom: 10px; font-weight: 600;
+           display: block;
+       }
+       .poem-details textarea {
+           width: 100%; padding: 14px 18px;
+           border: 1.5px solid var(--border); border-radius: 10px;
+           background: var(--rose-soft);
+           font-family: 'Jost', sans-serif; font-size: 15px;
+           color: var(--charcoal); outline: none; font-weight: 300;
+           resize: none; height: 130px;
+           transition: border-color 0.3s, box-shadow 0.3s;
+       }
+       .poem-details textarea:focus {
+           border-color: var(--rose);
+           box-shadow: 0 0 0 4px rgba(196,132,122,0.1);
+           background: white;
+       }
+       .poem-note {
+           font-size: 12px; color: var(--soft);
+           margin-top: 8px; font-style: italic;
+       }
+
+       /* ── CHECKOUT ── */
+       .checkout-wrap { background: var(--rose-soft); min-height: 100vh; padding: 70px 60px; }
+       .back-link {
+           display: inline-flex; align-items: center; gap: 8px;
+           font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+           color: var(--rose); cursor: pointer;
+           background: none; border: none;
+           font-family: 'Jost', sans-serif; font-weight: 500;
+           margin-bottom: 44px; transition: color 0.3s;
+       }
+       .back-link:hover { color: var(--charcoal); }
+       .checkout-inner { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+       .checkout-summary {
+           background: linear-gradient(150deg, var(--charcoal) 0%, #4A2E2A 100%);
+           padding: 55px 48px; border-radius: 20px;
+           box-shadow: 0 12px 48px rgba(46,36,34,0.2);
+       }
+       .checkout-summary h2 { font-family: 'Libre Baskerville', serif; font-size: 32px; color: white; margin-bottom: 8px; font-weight: 400; }
+       .checkout-summary .sub { font-size: 11px; letter-spacing: 3px; color: var(--rose-light); text-transform: uppercase; margin-bottom: 36px; font-weight: 500; }
+       .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 15px; color: rgba(255,255,255,0.6); }
+       .summary-row.total { border-bottom: none; border-top: 1px solid rgba(232,180,174,0.3); margin-top: 10px; padding-top: 22px; color: white; font-size: 18px; font-weight: 500; }
+       .summary-row.total span:last-child { font-family: 'Libre Baskerville', serif; font-size: 34px; color: var(--rose-light); font-style: italic; }
+       .checkout-payment { background: white; padding: 55px 48px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 8px 36px rgba(196,132,122,0.1); }
+       .checkout-payment h2 { font-family: 'Libre Baskerville', serif; font-size: 32px; color: var(--charcoal); margin-bottom: 8px; font-weight: 400; }
+       .checkout-payment .sub { font-size: 11px; letter-spacing: 3px; color: var(--rose); text-transform: uppercase; margin-bottom: 28px; font-weight: 500; }
+       .card-icons { display: flex; gap: 10px; margin-bottom: 26px; }
+       .card-icon { background: var(--rose-soft); border: 1px solid var(--border); padding: 6px 14px; border-radius: 6px; font-size: 11px; letter-spacing: 1px; color: var(--mid); font-weight: 600; }
+       .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+       .complete-btn {
+           width: 100%; padding: 19px;
+           background: linear-gradient(135deg, var(--rose), var(--gold));
+           color: white; border: none; border-radius: 40px;
+           font-family: 'Jost', sans-serif; font-size: 13px;
+           letter-spacing: 3px; text-transform: uppercase;
+           cursor: pointer; transition: all 0.3s; font-weight: 500;
+           margin-top: 26px;
+           box-shadow: 0 8px 28px rgba(196,132,122,0.3);
+       }
+       .complete-btn:hover { box-shadow: 0 14px 40px rgba(196,132,122,0.4); transform: translateY(-2px); }
+       .secure-note { text-align: center; font-size: 12px; color: var(--soft); margin-top: 14px; letter-spacing: 0.5px; }
+
+       /* ── FOOTER ── */
+       footer { background: var(--charcoal); padding: 80px 60px 44px; text-align: center; }
+       .footer-logo img { height: 66px; width: auto; max-width: 148px; object-fit: contain; margin-bottom: 22px; filter: brightness(0) invert(1); opacity: 0.9; }
+       .footer-tagline { font-family: 'Libre Baskerville', serif; font-size: 22px; font-style: italic; color: var(--rose-light); margin-bottom: 10px; }
+       .footer-rule { width: 70px; height: 1px; background: rgba(232,180,174,0.3); margin: 20px auto 26px; }
+       .footer-info { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 34px; }
+       .footer-info-item { font-size: 14px; color: rgba(255,255,255,0.36); }
+       .footer-info-item a { color: rgba(255,255,255,0.36); text-decoration: none; transition: color 0.3s; }
+       .footer-info-item a:hover { color: var(--rose-light); }
+       .footer-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.1); }
+       .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; }
+       .footer-bottom-btn {
+           background: none; border: 1px solid rgba(232,180,174,0.3);
+           color: rgba(232,180,174,0.6); padding: 12px 34px; border-radius: 30px;
+           font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 2.5px;
+           text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-weight: 500;
+       }
+       .footer-bottom-btn:hover { border-color: var(--rose-light); color: var(--rose-light); }
+
+       /* ── CONTACT ── */
+       .contact-bar { background: var(--gold-pale); padding: 80px 60px; }
+       .contact-bar-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+       .contact-item-box {
+           background: white; padding: 44px 32px; text-align: center;
+           border-radius: 14px; border: 1px solid var(--border);
+           box-shadow: 0 4px 20px rgba(196,132,122,0.07); transition: box-shadow 0.3s;
+       }
+       .contact-item-box:hover { box-shadow: 0 10px 36px rgba(196,132,122,0.14); }
+       .contact-item-box .label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--rose); margin-bottom: 12px; font-weight: 600; }
+       .contact-item-box .value { font-family: 'Libre Baskerville', serif; font-size: 18px; color: var(--charcoal); }
+       .contact-item-box .value a { color: var(--charcoal); text-decoration: none; }
+
+       /* ── ENGAGEMENT ── */
+       .engagement-wrap { background: var(--rose-soft); padding: 100px 60px; text-align: center; }
+       .engagement-form-box {
+           background: white; border: 1px solid var(--border); border-radius: 20px;
+           padding: 60px 52px; max-width: 620px; margin: 0 auto;
+           box-shadow: 0 8px 40px rgba(196,132,122,0.1);
+       }
+
+       /* ── RESPONSIVE ── */
+       @media (max-width: 900px) {
+           nav { padding: 0 20px; }
+           .nav-links { gap: 14px; }
+           .nav-links a { font-size: 10px; }
+           .hero h1 { font-size: 50px; }
+           .hero-logo { height: 120px; }
+           .section-title { font-size: 38px; }
+           .collections-grid { grid-template-columns: 1fr; }
+           .packages-grid { grid-template-columns: 1fr; }
+           .gallery-grid { grid-template-columns: repeat(2,1fr); }
+           .corporate-section { flex-direction: column; padding: 60px 24px; }
+           .contact-bar-inner { grid-template-columns: 1fr; }
+           .checkout-inner { grid-template-columns: 1fr; }
+           .about-section, .collections-section, .packages-section,
+           .order-section, .engagement-wrap, .checkout-wrap { padding: 60px 24px; }
+           .footer-info { gap: 20px; }
+           .footer-divider { display: none; }
+           .page-hero h1 { font-size: 42px; }
+           .card-row { grid-template-columns: 1fr; }
+       }
+   </style>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav>
+   <div class="nav-logo">
+       <img src="logo.png" alt="IMPACT" onclick="showPage('home')">
+   </div>
+   <ul class="nav-links">
+       <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('classic')">Classic</a></li>
+       <li><a onclick="showPage('signature')">Signature</a></li>
+       <li><a onclick="showPage('prestige')">Prestige</a></li>
+       <li><a onclick="showPage('engagement')">Engagement</a></li>
+       <li><a onclick="showPage('custom')">Custom</a></li>
+       <li><a onclick="showPage('corporate')">Corporate</a></li>
+       <li><a onclick="showPage('contact')">Contact</a></li>
+   </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+    HOME PAGE
+═══════════════════════════════════════════ -->
+<div id="home" class="page active">
+   <div class="hero">
+       <div class="hero-inner">
+           <img class="hero-logo" src="logo.png" alt="IMPACT Gift Wrapping">
+           <p class="tag-label">Luxury Gift Presentation</p>
+           <h1>Give It the <em>Impact</em><br>It <em>Deserves</em></h1>
+           <div class="hero-rule"></div>
+           <p>Beautiful arrangements for gifts and meaningful items — presented the way they were meant to be.</p>
+           <button class="btn" onclick="scrollToCollections()">Explore Collections</button>
+       </div>
+   </div>
+
+   <section class="about-section">
+       <p class="tag-label">Our Philosophy</p>
+       <h2 class="section-title">More Than a Gift.<br><em style="font-style:italic; color:var(--rose);">A Moment.</em></h2>
+       <div class="ribbon-divider">
+           <div class="ribbon-line"></div>
+           <div class="ribbon-icon">🎀</div>
+           <div class="ribbon-line r"></div>
+       </div>
+       <p>At IMPACT, we believe that  <strong>how you give is just as meaningful as what you give.</strong>
+       We take your gifts and cherished items and present them in a way that's thoughtful, elegant, and truly memorable.
+       Every arrangement is crafted with care — because the people in your life deserve more than just a gift.
+       They deserve <strong>a moment.</strong></p>
+   </section>
+
+   <section class="collections-section" id="collections-anchor">
+       <div class="section-header">
+           <p class="tag-label">Our Collections</p>
+           <h2 class="section-title">Find Your Perfect Arrangement</h2>
+       </div>
+       <div class="collections-grid">
+           <div class="collection-card">
+               <div class="collection-tier">Collection I</div>
+               <div class="collection-name">Classic</div>
+               <div class="collection-price">$75</div>
+               <div class="collection-line"></div>
+               <div class="collection-desc">A beautiful presentation for a heartfelt gift. Simple, tasteful, and elegantly arranged.</div>
+               <button class="btn btn-outline" onclick="showPage('classic')">Order Now</button>
+           </div>
+           <div class="collection-card">
+               <div class="collection-tier">Collection II</div>
+               <div class="collection-name">Signature</div>
+               <div class="collection-price">$150</div>
+               <div class="collection-line"></div>
+               <div class="collection-desc">A step above, for those who deserve it. A refined and distinctive presentation.</div>
+               <button class="btn btn-outline" onclick="showPage('signature')">Order Now</button>
+           </div>
+           <div class="collection-card">
+               <div class="collection-tier">Collection III</div>
+               <div class="collection-name">Prestige</div>
+               <div class="collection-price">$275</div>
+               <div class="collection-line"></div>
+               <div class="collection-desc">A truly remarkable presentation for your most significant gifts and special occasions.</div>
+               <button class="btn btn-outline" onclick="showPage('prestige')">Order Now</button>
+           </div>
+       </div>
+   </section>
+
+   <section class="packages-section">
+       <div class="section-header">
+           <p class="tag-label">Special Packages</p>
+           <h2 class="section-title">Tailored for Life's<br><em style="font-style:italic; color:var(--rose);">Most Meaningful Moments</em></h2>
+        </div>
+       <div class="packages-grid">
+           <div class="package-card">
+               <div class="package-icon">💍</div>
+               <h3>Engagement Package</h3>
+               <p>An engagement is a journey — and every step deserves to be celebrated. From the Tenoyim to the big day, we're with you every meaningful moment along the way.</p>
+               <button class="btn btn-outline-gold" onclick="showPage('engagement')">Book Your Package</button>
+           </div>
+           <div class="package-card">
+               <div class="package-icon">✨</div>
+               <h3>Custom Arrangement</h3>
+               <p>Every gift has its own story. If you have a particular item or vision in mind, we're happy to work with you to create something that feels truly personal.</p>
+               <button class="btn btn-outline-gold" onclick="showPage('custom')">Let's Create Together</button>
+           </div>
+       </div>
+   </section>
+
+   <div class="corporate-section">
+       <div class="corporate-text">
+           <p class="tag-label">For Businesses</p>
+           <h2 class="section-title">Corporate<br>Gifts</h2>
+           <p>In business, the details matter — and a beautifully presented gift speaks volumes. IMPACT delivers a polished, professional presentation that reflects the quality of your brand.</p>
+           <button class="btn" onclick="showPage('corporate')">Learn More</button>
+       </div>
+       <div class="corporate-visual">Photo Coming Soon</div>
+   </div>
+
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item">www.impactgiftwrapping.com</div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    CLASSIC PAGE
+═══════════════════════════════════════════ -->
+<div id="classic" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Collection I</p>
+       <h1>Classic</h1>
+       <p>A beautiful presentation for a heartfelt gift. Simple, tasteful, and elegantly arranged.</p>
+       <div class="price-tag">$75</div>
+   </div>
+   <div class="gallery-section">
+       <div class="gallery-grid">
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Place Your Order</p>
+           <h2 class="section-title">Classic Collection</h2>
+       </div>
+       <form class="order-form" name="classic-order" data-netlify="true" onsubmit="goToCheckout(event,'classic',75)">
+           <input type="hidden" name="form-name" value="classic-order">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
+           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
+           <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
+           <div class="form-group">
+               <label>Add a Display Item <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:13px;color:var(--soft);">(optional)</span></label>
+               <select id="classic-display" name="display-item">
+                   <option value="none">— No display item —</option>
+                   <option value="Crystal Butterfly (+$25)">Crystal Butterfly (+$25)</option>
+                   <option value="Diffuser (+$35)">Diffuser (+$35)</option>
+               </select>
+           </div>
+           <div class="form-group">
+               <label>Kind of Gift</label>
+               <div class="gifts-container" id="classic-gifts">
+                   <div class="gift-row"><input type="text" name="gift[]" placeholder="Describe your gift..."></div>
+               </div>
+               <button type="button" class="add-gift-btn" onclick="addGift('classic-gifts')">Add a Gift</button>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="classic-poem-check" name="add-poem" value="yes" onclick="togglePoem('classic-poem-details')">
+                   <label class="poem-checkbox-label" for="classic-poem-check">
+                       Add a Poem to the Arrangement 🎀(+$75)
+                       <span>A personalized poem written especially for your gift</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="classic-poem-details">
+                   <label>What would you like the poem to express?</label>
+                   <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                   <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+               </div>
+           </div>
+           <button type="submit" class="submit-btn">Proceed to Checkout</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    SIGNATURE PAGE
+═══════════════════════════════════════════ -->
+<div id="signature" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Collection II</p>
+       <h1>Signature</h1>
+       <p>A step above, for those who deserve it. A refined and distinctive presentation.</p>
+       <div class="price-tag">$150</div>
+   </div>
+   <div class="gallery-section">
+       <div class="gallery-grid">
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Place Your Order</p>
+           <h2 class="section-title">Signature Collection</h2>
+       </div>
+       <form class="order-form" name="signature-order" data-netlify="true" onsubmit="goToCheckout(event,'signature',150)">
+           <input type="hidden" name="form-name" value="signature-order">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
+           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
+           <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
+           <div class="form-group">
+               <label>Add a Display Item <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:13px;color:var(--soft);">(optional)</span></label>
+               <select id="signature-display" name="display-item">
+                   <option value="none">— No display item —</option>
+                   <option value="Crystal Butterfly (+$25)">Crystal Butterfly (+$25)</option>
+                   <option value="Diffuser (+$35)">Diffuser (+$35)</option>
+               </select>
+           </div>
+           <div class="form-group">
+               <label>Kind of Gift</label>
+               <div class="gifts-container" id="signature-gifts">
+                   <div class="gift-row"><input type="text" name="gift[]" placeholder="Describe your gift..."></div>
+               </div>
+               <button type="button" class="add-gift-btn" onclick="addGift('signature-gifts')">Add a Gift</button>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="signature-poem-check" name="add-poem" value="yes" onclick="togglePoem('signature-poem-details')">
+                   <label class="poem-checkbox-label" for="signature-poem-check">
+                       Add a Poem to the Arrangement 🎀(+$75)
+                       <span>A personalized poem written especially for your gift</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="signature-poem-details">
+                   <label>What would you like the poem to express?</label>
+                   <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                   <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+               </div>
+           </div>
+           <button type="submit" class="submit-btn">Proceed to Checkout</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    PRESTIGE PAGE
+═══════════════════════════════════════════ -->
+<div id="prestige" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Collection III</p>
+       <h1>Prestige</h1>
+       <p>A truly remarkable presentation for your most significant gifts and special occasions.</p>
+       <div class="price-tag">$275</div>
+   </div>
+   <div class="gallery-section">
+       <div class="gallery-grid">
+           <img class="gallery-image" src="prestige-gallery-1.png" alt="Prestige Collection gift presentation">
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Place Your Order</p>
+           <h2 class="section-title">Prestige Collection</h2>
+       </div>
+       <form class="order-form" name="prestige-order" data-netlify="true" onsubmit="goToCheckout(event,'prestige',275)">
+           <input type="hidden" name="form-name" value="prestige-order">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
+           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
+           <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
+           <div class="form-group">
+               <label>Add a Display Item <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:13px;color:var(--soft);">(optional)</span></label>
+               <select id="prestige-display" name="display-item">
+                   <option value="none">— No display item —</option>
+                   <option value="Crystal Butterfly (+$25)">Crystal Butterfly (+$25)</option>
+                   <option value="Diffuser (+$35)">Diffuser (+$35)</option>
+               </select>
+           </div>
+           <div class="form-group">
+               <label>Kind of Gift</label>
+               <div class="gifts-container" id="prestige-gifts">
+                   <div class="gift-row"><input type="text" name="gift[]" placeholder="Describe your gift..."></div>
+               </div>
+               <button type="button" class="add-gift-btn" onclick="addGift('prestige-gifts')">Add a Gift</button>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="prestige-poem-check" name="add-poem" value="yes" onclick="togglePoem('prestige-poem-details')">
+                   <label class="poem-checkbox-label" for="prestige-poem-check">
+                       Add a Poem to the Arrangement 🎀(+$75)
+                       <span>A personalized poem written especially for your gift</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="prestige-poem-details">
+                   <label>What would you like the poem to express?</label>
+                   <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                   <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+               </div>
+           </div>
+           <button type="submit" class="submit-btn">Proceed to Checkout</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    CHECKOUT PAGE
+═══════════════════════════════════════════ -->
+<div id="checkout" class="page">
+   <div style="background:var(--rose-soft); padding:36px 60px 0;">
+       <button class="back-link" onclick="showPage(lastPage)">← Back to Order</button>
+   </div>
+   <div class="checkout-wrap">
+       <div class="checkout-inner">
+           <div class="checkout-summary">
+               <p class="sub">Your Selection</p>
+               <h2>Order Summary</h2>
+               <div class="summary-row">
+                   <span id="co-collection">Collection</span>
+                   <span id="co-base-price">$0</span>
+               </div>
+               <div class="summary-row" id="co-display-row" style="display:none;">
+                   <span id="co-display-name">Display Item</span>
+                   <span id="co-display-price">$0</span>
+               </div>
+               <div class="summary-row" id="co-poem-row" style="display:none;">
+                   <span>Personalized Poem 🎀</span>
+                   <span id="co-poem-price">+$75</span>
+               </div>
+               <div class="summary-row total">
+                   <span>Total</span>
+                   <span id="co-total">$0</span>
+               </div>
+           </div>
+           <div class="checkout-payment">
+               <p class="sub">Secure Payment</p>
+               <h2>Payment Details</h2>
+               <div class="card-icons">
+                   <div class="card-icon">VISA</div>
+                   <div class="card-icon">MC</div>
+                   <div class="card-icon">AMEX</div>
+               </div>
+               <form onsubmit="completePayment(event)">
+                   <div class="form-group"><label>Cardholder Name</label><input type="text" required placeholder="Name on card"></div>
+                   <div class="form-group"><label>Card Number</label><input type="text" required placeholder="0000 0000 0000 0000" maxlength="19"></div>
+                   <div class="card-row">
+                       <div class="form-group"><label>Expiry Date</label><input type="text" required placeholder="MM / YY" maxlength="7"></div>
+                       <div class="form-group"><label>CVV</label><input type="text" required placeholder="000" maxlength="4"></div>
+                   </div>
+                   <button type="submit" class="complete-btn">Complete Payment</button>
+                   <p class="secure-note">🔒 Secure & encrypted payment</p>
+               </form>
+           </div>
+       </div>
+   </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    ENGAGEMENT PAGE
+═══════════════════════════════════════════ -->
+<div id="engagement" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Special Package</p>
+       <h1>Engagement Package</h1>
+       <p>A beautiful beginning deserves a beautiful presentation. We would be honored to be part of this special time in your life.</p>
+   </div>
+   <div class="engagement-wrap">
+       <p class="tag-label" style="text-align:center; display:block;">With You Through Every Moment</p>
+       <h2 class="section-title" style="text-align:center; margin-bottom:14px;">A Journey of<br><em style="font-style:italic; color:var(--rose);">Beautiful Moments</em></h2>
+       <div class="ribbon-divider" style="margin-bottom:44px;">
+           <div class="ribbon-line"></div>
+           <div class="ribbon-icon">🎀</div>
+           <div class="ribbon-line r"></div>
+       </div>
+       <p style="text-align:center; max-width:600px; margin:0 auto 55px; font-size:17px; color:var(--soft); line-height:2;">
+           An engagement is a journey — and every step deserves to be celebrated.
+           Our Engagement Package is designed to beautifully present your gifts throughout
+           the entire engagement, from the Tenoyim to the big day.
+       </p>
+       <div class="engagement-form-box">
+           <form name="engagement" data-netlify="true" onsubmit="engagementSubmit(event)">
+               <input type="hidden" name="form-name" value="engagement">
+               <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+               <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+               <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Pickup location"></div>
+               <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Delivery location"></div>
+               <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving?"></div>
+               <div class="form-group"><label>When Did the Engagement Begin?</label><input type="date" name="engagement-date" required></div>
+               <div class="form-group"><label>When Is the Chasunah?</label><input type="date" name="wedding-date" required></div>
+               <div class="form-group">
+                   <div class="poem-checkbox-wrap">
+                       <input type="checkbox" id="engagement-poem-check" name="add-poem" value="yes" onclick="togglePoem('engagement-poem-details')">
+                       <label class="poem-checkbox-label" for="engagement-poem-check">
+                           Add a Poem to the Arrangement 🎀(+$75)
+                           <span>A personalized poem written especially for your gift</span>
+                       </label>
+                   </div>
+                   <div class="poem-details" id="engagement-poem-details">
+                       <label>What would you like the poem to express?</label>
+                       <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                       <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+                   </div>
+               </div>
+               <button type="submit" class="submit-btn">Send My Details — We'll Be in Touch</button>
+           </form>
+       </div>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    CUSTOM ARRANGEMENT PAGE
+═══════════════════════════════════════════ -->
+<div id="custom" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Personalized</p>
+       <h1>Custom Arrangement</h1>
+       <p>Every gift has its own story — let's create something that feels truly yours.</p>
+   </div>
+   <div class="gallery-section">
+       <div class="gallery-grid">
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Tell Us About Your Gift</p>
+           <h2 class="section-title">Let's Create Together</h2>
+       </div>
+       <form class="order-form" name="custom-order" data-netlify="true" onsubmit="customSubmit(event)">
+           <input type="hidden" name="form-name" value="custom-order">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
+           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
+           <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
+           <div class="form-group">
+               <label>Approximate Budget</label>
+               <input type="text" name="budget" placeholder="e.g. $100 – $200">
+               <div class="form-note">So we can create something just right for you</div>
+           </div>
+           <div class="form-group">
+               <label>Add a Display Item <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:13px;color:var(--soft);">(optional)</span></label>
+               <select name="display-item">
+                   <option value="none">— No display item —</option>
+                   <option value="Crystal Butterfly (+$25)">Crystal Butterfly (+$25)</option>
+                   <option value="Diffuser (+$35)">Diffuser (+$35)</option>
+               </select>
+           </div>
+           <div class="form-group">
+               <label>Kind of Gift</label>
+               <div class="gifts-container" id="custom-gifts">
+                   <div class="gift-row"><input type="text" name="gift[]" placeholder="Describe your gift..."></div>
+               </div>
+               <button type="button" class="add-gift-btn" onclick="addGift('custom-gifts')">Add a Gift</button>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="custom-poem-check" name="add-poem" value="yes" onclick="togglePoem('custom-poem-details')">
+                   <label class="poem-checkbox-label" for="custom-poem-check">
+                       Add a Poem to the Arrangement 🎀(+$75)
+                       <span>A personalized poem written especially for your gift</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="custom-poem-details">
+                   <label>What would you like the poem to express?</label>
+                   <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                   <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+               </div>
+           </div>
+           <button type="submit" class="submit-btn">Let's Get Started</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    CORPORATE GIFTS PAGE
+═══════════════════════════════════════════ -->
+<div id="corporate" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">For Businesses</p>
+       <h1>Corporate Gifts</h1>
+       <p>In business, the details matter — and a beautifully presented gift speaks volumes.</p>
+   </div>
+   <div class="gallery-section">
+       <div class="gallery-grid">
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+           <div class="gallery-placeholder">Photo</div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Place Your Order</p>
+           <h2 class="section-title">Make Every Client Feel Like a Priority</h2>
+       </div>
+       <form class="order-form" name="corporate-order" data-netlify="true" onsubmit="handleSubmit(event)">
+           <input type="hidden" name="form-name" value="corporate-order">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
+           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
+           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
+           <div class="form-group">
+               <label>Number of Recipients</label>
+               <input type="text" name="num-recipients" placeholder="e.g. number of employees, clients, guests...">
+           </div>
+           <div class="form-group">
+               <label>Kind of Gift</label>
+               <div class="gifts-container" id="corporate-gifts">
+                   <div class="gift-row"><input type="text" name="gift[]" placeholder="Describe the gift..."></div>
+               </div>
+               <button type="button" class="add-gift-btn" onclick="addGift('corporate-gifts')">Add a Gift</button>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="corporate-poem-check" name="add-poem" value="yes" onclick="togglePoem('corporate-poem-details')">
+                   <label class="poem-checkbox-label" for="corporate-poem-check">
+                       Add a Poem to the Arrangement 🎀(+$75)(+$75)
+                       <span>A personalized poem written especially for your gift</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="corporate-poem-details">
+                   <label>What would you like the poem to express?</label>
+                   <textarea name="poem-details" placeholder="Tell us about the occasion, the recipient, the feeling you want to convey, or anything special you'd like included in the poem..."></textarea>
+                   <p class="poem-note">✨ We'll craft a beautiful poem based on what you share with us</p>
+               </div>
+           </div>
+           <button type="submit" class="submit-btn">Submit Order</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+       <div class="footer-bottom"><button class="footer-bottom-btn" onclick="showPage('contact')">Contact Us</button></div>
+   </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+    CONTACT PAGE
+═══════════════════════════════════════════ -->
+<div id="contact" class="page">
+   <div class="page-hero">
+       <img class="page-hero-logo" src="logo.png" alt="IMPACT">
+       <p class="tag-label">Get In Touch</p>
+       <h1>Contact Us</h1>
+       <p>Have a question or a special request? We're here for you — reach out and we'll get back to you as soon as possible.</p>
+   </div>
+   <div class="contact-bar">
+       <div class="contact-bar-inner">
+           <div class="contact-item-box">
+               <div class="label">Email</div>
+               <div class="value"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           </div>
+           <div class="contact-item-box">
+               <div class="label">Phone</div>
+               <div class="value"><a href="tel:7185506058">718-550-6058</a></div>
+           </div>
+           <div class="contact-item-box">
+               <div class="label">Website</div>
+               <div class="value">www.impactgiftwrapping.com</div>
+           </div>
+       </div>
+   </div>
+   <div class="order-section">
+       <div class="section-header">
+           <p class="tag-label">Send Us a Message</p>
+           <h2 class="section-title">We'd Love to Hear From You</h2>
+       </div>
+       <form class="order-form" name="contact" data-netlify="true" onsubmit="contactSubmit(event)">
+           <input type="hidden" name="form-name" value="contact">
+           <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
+           <div class="form-group"><label>Email Address</label><input type="email" name="email" required placeholder="Your email address"></div>
+           <div class="form-group"><label>Your Message</label><textarea name="message" placeholder="Write your message here..."></textarea></div>
+           <button type="submit" class="submit-btn">Send Us Your Thoughts</button>
+       </form>
+   </div>
+   <footer>
+       <div class="footer-logo"><img src="logo.png" alt="IMPACT"></div>
+       <div class="footer-tagline">Every gift deserves an IMPACT.</div>
+       <div class="footer-rule"></div>
+       <div class="footer-info">
+           <div class="footer-info-item"><a href="mailto:Simi@impactgiftwrapping.com">Simi@impactgiftwrapping.com</a></div>
+           <div class="footer-divider"></div>
+           <div class="footer-info-item"><a href="tel:7185506058">718-550-6058</a></div>
+       </div>
+   </footer>
+</div>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+   let lastPage = 'home';
+
+   function showPage(pageId) {
+       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+       document.getElementById(pageId).classList.add('active');
+       window.scrollTo({ top: 0, behavior: 'smooth' });
+       if (pageId !== 'checkout') lastPage = pageId;
+   }
+
+   function scrollToCollections() {
+       document.getElementById('collections-anchor').scrollIntoView({ behavior: 'smooth' });
+   }
+
+   function addGift(containerId) {
+       const container = document.getElementById(containerId);
+       const row = document.createElement('div');
+       row.className = 'gift-row';
+       row.innerHTML = '<input type="text" name="gift[]" placeholder="Describe your gift...">';
+       container.appendChild(row);
+       row.querySelector('input').focus();
+   }
+
+   function togglePoem(detailsId) {
+       const details = document.getElementById(detailsId);
+       details.classList.toggle('visible');
+   }
+
+  function goToCheckout(e, collectionName, basePrice) {
+    e.preventDefault();
+    const displaySelect = document.getElementById(collectionName + '-display');
+    const displayVal = displaySelect ? displaySelect.value : 'none';
+    const poemCheck = document.getElementById(collectionName + '-poem-check');
+    const hasPoem = poemCheck && poemCheck.checked;
+
+    let displayPrice = 0;
+    let displayName = '';
+    if (displayVal.includes('+$25')) { displayPrice = 25; displayName = 'Crystal Butterfly'; }
+    if (displayVal.includes('+$35')) { displayPrice = 35; displayName = 'Diffuser'; }
+
+    const poemPrice = hasPoem ? 75 : 0;  // ← $75 for poem
+    const total = basePrice + displayPrice + poemPrice;  // ← added to total
+    const collLabel = collectionName.charAt(0).toUpperCase() + collectionName.slice(1) + ' Collection';
+
+    document.getElementById('co-collection').textContent = collLabel;
+    document.getElementById('co-base-price').textContent = '$' + basePrice;
+    document.getElementById('co-total').textContent = '$' + total;
+
+    const displayRow = document.getElementById('co-display-row');
+    if (displayPrice > 0) {
+        displayRow.style.display = 'flex';
+        document.getElementById('co-display-name').textContent = displayName;
+        document.getElementById('co-display-price').textContent = '+$' + displayPrice;
+    } else {
+        displayRow.style.display = 'none';
+    }
+
+    const poemRow = document.getElementById('co-poem-row');
+    poemRow.style.display = hasPoem ? 'flex' : 'none';
+
+    showPage('checkout');
+}
+
+   function completePayment(e) {
+       e.preventDefault();
+       alert('🌸 Thank you for your order!\nYour payment has been received. We will be in touch shortly to confirm your arrangement.');
+       showPage('home');
+   }
+
+   function engagementSubmit(e) {
+       e.preventDefault();
+       alert('💍 Thank you! We\'ve received your details and will be in touch soon.');
+       e.target.reset();
+   }
+
+   function customSubmit(e) {
+       e.preventDefault();
+       alert('✨ Thank you! We\'ve received your request and will be in touch to bring your vision to life.');
+       e.target.reset();
+   }
+
+   function handleSubmit(e) {
+       e.preventDefault();
+       alert('🌸 Thank you for your order!\nWe will be in touch with you shortly.');
+       e.target.reset();
+   }
+
+   function contactSubmit(e) {
+       e.preventDefault();
+       alert('🌸 Thank you for your message!\nWe\'ll get back to you as soon as possible.');
+       e.target.reset();
+   }
+
+   document.addEventListener('input', function(e) {
+       if (e.target.placeholder === '0000 0000 0000 0000') {
+           let val = e.target.value.replace(/\D/g,'').substring(0,16);
+           e.target.value = val.replace(/(.{4})/g,'$1 ').trim();
+       }
+       if (e.target.placeholder === 'MM / YY') {
+           let val = e.target.value.replace(/\D/g,'').substring(0,4);
+           if (val.length >= 2) val = val.substring(0,2) + ' / ' + val.substring(2);
+           e.target.value = val;
+       }
+   });
+</script>
+
+</body>
+</html>
