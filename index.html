@@ -692,6 +692,7 @@
        </div>
        <form class="order-form" name="classic-order" data-netlify="true" onsubmit="goToCheckout(event,'classic',75)">
            <input type="hidden" name="form-name" value="classic-order">
+           <input type="hidden" name="order-total" id="classic-order-total" value="">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
            <div class="form-group">
@@ -793,6 +794,7 @@
        </div>
        <form class="order-form" name="signature-order" data-netlify="true" onsubmit="goToCheckout(event,'signature',150)">
            <input type="hidden" name="form-name" value="signature-order">
+           <input type="hidden" name="order-total" id="signature-order-total" value="">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
            <div class="form-group">
@@ -894,6 +896,7 @@
        </div>
        <form class="order-form" name="prestige-order" data-netlify="true" onsubmit="goToCheckout(event,'prestige',275)">
            <input type="hidden" name="form-name" value="prestige-order">
+           <input type="hidden" name="order-total" id="prestige-order-total" value="">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
            <div class="form-group">
@@ -1425,6 +1428,11 @@
     document.getElementById('co-base-price').textContent = '$' + basePrice;
     document.getElementById('co-total').textContent = '$' + total;
 
+    // Record the order in Netlify Forms (this is what triggers your email notification)
+    const totalField = document.getElementById(collectionName + '-order-total');
+    if (totalField) totalField.value = '$' + total;
+    sendToNetlify(e.target).catch(() => {});
+
     const displayRow = document.getElementById('co-display-row');
     if (displayPrice > 0) {
         displayRow.style.display = 'flex';
@@ -1448,28 +1456,44 @@
        showPage('home');
    }
 
-   function engagementSubmit(e) {
+   // Sends a form's details to Netlify Forms without leaving the page
+   function sendToNetlify(form) {
+       return fetch('/', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+           body: new URLSearchParams(new FormData(form)).toString()
+       }).then(res => { if (!res.ok) throw new Error('Form submission failed'); });
+   }
+
+   function submitAndThank(e, message) {
        e.preventDefault();
-       alert('💍 Thank you! We\'ve received your details and will be in touch soon.');
-       e.target.reset();
+       const form = e.target;
+       const btn = form.querySelector('[type=submit]');
+       if (btn) btn.disabled = true;
+       sendToNetlify(form)
+           .then(() => {
+               alert(message);
+               form.reset();
+               form.querySelectorAll('.poem-details.visible').forEach(d => d.classList.remove('visible'));
+           })
+           .catch(() => alert('Sorry, something went wrong sending your details. Please try again, or call us at 718-550-6058.'))
+           .finally(() => { if (btn) btn.disabled = false; });
+   }
+
+   function engagementSubmit(e) {
+       submitAndThank(e, '💍 Thank you! We\'ve received your details and will be in touch soon.');
    }
 
    function customSubmit(e) {
-       e.preventDefault();
-       alert('✨ Thank you! We\'ve received your request and will be in touch to bring your vision to life.');
-       e.target.reset();
+       submitAndThank(e, '✨ Thank you! We\'ve received your request and will be in touch to bring your vision to life.');
    }
 
    function handleSubmit(e) {
-       e.preventDefault();
-       alert('🌸 Thank you for your order!\nWe will be in touch with you shortly.');
-       e.target.reset();
+       submitAndThank(e, '🌸 Thank you for your order!\nWe will be in touch with you shortly.');
    }
 
    function contactSubmit(e) {
-       e.preventDefault();
-       alert('🌸 Thank you for your message!\nWe\'ll get back to you as soon as possible.');
-       e.target.reset();
+       submitAndThank(e, '🌸 Thank you for your message!\nWe\'ll get back to you as soon as possible.');
    }
 
    document.addEventListener('input', function(e) {
