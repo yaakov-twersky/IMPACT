@@ -694,8 +694,32 @@
            <input type="hidden" name="form-name" value="classic-order">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
-           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="classic-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('classic-pickup')">
+                   <label class="poem-checkbox-label" for="classic-pickup-check">
+                       Add Pick-Up 🚗 (+$15)
+                       <span>We'll come pick up your gifts from you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="classic-pickup-details">
+                   <label>Pickup Address — From</label>
+                   <input type="text" name="pickup-address" placeholder="Where we pick up from">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="classic-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('classic-delivery')">
+                   <label class="poem-checkbox-label" for="classic-delivery-check">
+                       Add Delivery 🚚 (+$15)
+                       <span>We'll deliver the finished arrangement for you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="classic-delivery-details">
+                   <label>Delivery Address — To</label>
+                   <input type="text" name="delivery-address" placeholder="Where it's going">
+               </div>
+           </div>
            <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
            <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
            <div class="form-group">
@@ -771,8 +795,32 @@
            <input type="hidden" name="form-name" value="signature-order">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
-           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="signature-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('signature-pickup')">
+                   <label class="poem-checkbox-label" for="signature-pickup-check">
+                       Add Pick-Up 🚗 (+$15)
+                       <span>We'll come pick up your gifts from you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="signature-pickup-details">
+                   <label>Pickup Address — From</label>
+                   <input type="text" name="pickup-address" placeholder="Where we pick up from">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="signature-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('signature-delivery')">
+                   <label class="poem-checkbox-label" for="signature-delivery-check">
+                       Add Delivery 🚚 (+$15)
+                       <span>We'll deliver the finished arrangement for you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="signature-delivery-details">
+                   <label>Delivery Address — To</label>
+                   <input type="text" name="delivery-address" placeholder="Where it's going">
+               </div>
+           </div>
            <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
            <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
            <div class="form-group">
@@ -848,8 +896,32 @@
            <input type="hidden" name="form-name" value="prestige-order">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
-           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="prestige-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('prestige-pickup')">
+                   <label class="poem-checkbox-label" for="prestige-pickup-check">
+                       Add Pick-Up 🚗 (+$15)
+                       <span>We'll come pick up your gifts from you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="prestige-pickup-details">
+                   <label>Pickup Address — From</label>
+                   <input type="text" name="pickup-address" placeholder="Where we pick up from">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="prestige-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('prestige-delivery')">
+                   <label class="poem-checkbox-label" for="prestige-delivery-check">
+                       Add Delivery 🚚 (+$15)
+                       <span>We'll deliver the finished arrangement for you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="prestige-delivery-details">
+                   <label>Delivery Address — To</label>
+                   <input type="text" name="delivery-address" placeholder="Where it's going">
+               </div>
+           </div>
            <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
            <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
            <div class="form-group">
@@ -921,6 +993,14 @@
                    <span>Personalized Poem 🎀</span>
                    <span id="co-poem-price">+$75</span>
                </div>
+               <div class="summary-row" id="co-pickup-row" style="display:none;">
+                   <span>Pick-Up 🚗</span>
+                   <span>+$15</span>
+               </div>
+               <div class="summary-row" id="co-delivery-row" style="display:none;">
+                   <span>Delivery 🚚</span>
+                   <span>+$15</span>
+               </div>
                <div class="summary-row total">
                    <span>Total</span>
                    <span id="co-total">$0</span>
@@ -977,8 +1057,32 @@
                <input type="hidden" name="form-name" value="engagement">
                <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
                <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-               <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Pickup location"></div>
-               <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Delivery location"></div>
+               <div class="form-group">
+                   <div class="poem-checkbox-wrap">
+                       <input type="checkbox" id="engagement-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('engagement-pickup')">
+                       <label class="poem-checkbox-label" for="engagement-pickup-check">
+                           Add Pick-Up 🚗 (+$15)
+                           <span>We'll come pick up your gifts from you</span>
+                       </label>
+                   </div>
+                   <div class="poem-details" id="engagement-pickup-details">
+                       <label>Pickup Address — From</label>
+                       <input type="text" name="pickup-address" placeholder="Pickup location">
+                   </div>
+               </div>
+               <div class="form-group">
+                   <div class="poem-checkbox-wrap">
+                       <input type="checkbox" id="engagement-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('engagement-delivery')">
+                       <label class="poem-checkbox-label" for="engagement-delivery-check">
+                           Add Delivery 🚚 (+$15)
+                           <span>We'll deliver the finished arrangement for you</span>
+                       </label>
+                   </div>
+                   <div class="poem-details" id="engagement-delivery-details">
+                       <label>Delivery Address — To</label>
+                       <input type="text" name="delivery-address" placeholder="Delivery location">
+                   </div>
+               </div>
                <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving?"></div>
                <div class="form-group"><label>When Did the Engagement Begin?</label><input type="date" name="engagement-date" required></div>
                <div class="form-group"><label>When Is the Chasunah?</label><input type="date" name="wedding-date" required></div>
@@ -1040,8 +1144,32 @@
            <input type="hidden" name="form-name" value="custom-order">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
-           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="custom-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('custom-pickup')">
+                   <label class="poem-checkbox-label" for="custom-pickup-check">
+                       Add Pick-Up 🚗 (+$15)
+                       <span>We'll come pick up your gifts from you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="custom-pickup-details">
+                   <label>Pickup Address — From</label>
+                   <input type="text" name="pickup-address" placeholder="Where we pick up from">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="custom-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('custom-delivery')">
+                   <label class="poem-checkbox-label" for="custom-delivery-check">
+                       Add Delivery 🚚 (+$15)
+                       <span>We'll deliver the finished arrangement for you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="custom-delivery-details">
+                   <label>Delivery Address — To</label>
+                   <input type="text" name="delivery-address" placeholder="Where it's going">
+               </div>
+           </div>
            <div class="form-group"><label>Name of Receiver</label><input type="text" name="receiver-name" required placeholder="Who is receiving this gift?"></div>
            <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
            <div class="form-group">
@@ -1121,8 +1249,32 @@
            <input type="hidden" name="form-name" value="corporate-order">
            <div class="form-group"><label>Full Name</label><input type="text" name="full-name" required placeholder="Your full name"></div>
            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" required placeholder="Your phone number"></div>
-           <div class="form-group"><label>Pickup Address — From</label><input type="text" name="pickup-address" required placeholder="Where we pick up from"></div>
-           <div class="form-group"><label>Delivery Address — To</label><input type="text" name="delivery-address" required placeholder="Where it's going"></div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="corporate-pickup-check" name="pickup-service" value="Yes (+$15)" onclick="toggleService('corporate-pickup')">
+                   <label class="poem-checkbox-label" for="corporate-pickup-check">
+                       Add Pick-Up 🚗 (+$15)
+                       <span>We'll come pick up your gifts from you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="corporate-pickup-details">
+                   <label>Pickup Address — From</label>
+                   <input type="text" name="pickup-address" placeholder="Where we pick up from">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="poem-checkbox-wrap">
+                   <input type="checkbox" id="corporate-delivery-check" name="delivery-service" value="Yes (+$15)" onclick="toggleService('corporate-delivery')">
+                   <label class="poem-checkbox-label" for="corporate-delivery-check">
+                       Add Delivery 🚚 (+$15)
+                       <span>We'll deliver the finished arrangement for you</span>
+                   </label>
+               </div>
+               <div class="poem-details" id="corporate-delivery-details">
+                   <label>Delivery Address — To</label>
+                   <input type="text" name="delivery-address" placeholder="Where it's going">
+               </div>
+           </div>
            <div class="form-group"><label>Date Needed</label><input type="date" name="date-needed" required></div>
            <div class="form-group">
                <label>Number of Recipients</label>
@@ -1245,6 +1397,16 @@
        details.classList.toggle('visible');
    }
 
+   // Show/hide the address box for pick-up or delivery, and require the address only when chosen
+   function toggleService(prefix) {
+       const checked = document.getElementById(prefix + '-check').checked;
+       const details = document.getElementById(prefix + '-details');
+       details.classList.toggle('visible', checked);
+       const input = details.querySelector('input');
+       input.required = checked;
+       if (checked) input.focus();
+   }
+
   function goToCheckout(e, collectionName, basePrice) {
     e.preventDefault();
     const displaySelect = document.getElementById(collectionName + '-display');
@@ -1258,7 +1420,13 @@
     if (displayVal.includes('+$35')) { displayPrice = 35; displayName = 'Diffuser'; }
 
     const poemPrice = hasPoem ? 75 : 0;  // ← $75 for poem
-    const total = basePrice + displayPrice + poemPrice;  // ← added to total
+    const pickupCheck = document.getElementById(collectionName + '-pickup-check');
+    const deliveryCheck = document.getElementById(collectionName + '-delivery-check');
+    const hasPickup = pickupCheck && pickupCheck.checked;
+    const hasDelivery = deliveryCheck && deliveryCheck.checked;
+    const pickupPrice = hasPickup ? 15 : 0;      // ← $15 for pick-up
+    const deliveryPrice = hasDelivery ? 15 : 0;  // ← $15 for delivery
+    const total = basePrice + displayPrice + poemPrice + pickupPrice + deliveryPrice;  // ← added to total
     const collLabel = collectionName.charAt(0).toUpperCase() + collectionName.slice(1) + ' Collection';
 
     document.getElementById('co-collection').textContent = collLabel;
@@ -1276,6 +1444,8 @@
 
     const poemRow = document.getElementById('co-poem-row');
     poemRow.style.display = hasPoem ? 'flex' : 'none';
+    document.getElementById('co-pickup-row').style.display = hasPickup ? 'flex' : 'none';
+    document.getElementById('co-delivery-row').style.display = hasDelivery ? 'flex' : 'none';
 
     showPage('checkout');
 }
